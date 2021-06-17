@@ -1,10 +1,16 @@
 const express = require('express')
 const router = express.Router({ caseSensitive: false })
 
-const { registerCar, allCars, deleteCar } = require('./controllers')
+const {
+  registerCar,
+  allCars,
+  deleteCar,
+  registerCarInHighway,
+} = require('./controllers')
 
-router.post('/register-car', registerCar)
+router.post('/car', registerCar)
 router.get('/all', allCars)
 router.delete('/car', deleteCar)
+router.post('highway', registerCarInHighway)
 
 module.exports = router

@@ -1,6 +1,6 @@
 const Car = require('../../car/car.model')
 const AccessCard = require('../../access-card/access-card.model')
-registerCar = async (req, res) => {
+registerCarInHighway = async (req, res) => {
   try {
     const car = await Car.findone({ _id: req.body.car_id })
     if (car) {
@@ -10,12 +10,16 @@ registerCar = async (req, res) => {
           .status(400)
           .json({ message: 'This Car Is Registerd Before In HighWay' })
       }
-      accessCard.credit += 10
+      accessCard.credit = 10
       accessCard.isFirst = true
       const savedCard = await accessCard.save()
-      return res.status(400).json({
+      return res.status(200).json({
         message: 'Car Is Registerd In HighWay and Card Created Successfully',
         savedCard,
+      })
+    } else {
+      return res.status(200).json({
+        message: 'Car Not Found',
       })
     }
   } catch (error) {
@@ -23,4 +27,4 @@ registerCar = async (req, res) => {
   }
 }
 
-module.exports = registerCar
+module.exports = registerCarInHighway
